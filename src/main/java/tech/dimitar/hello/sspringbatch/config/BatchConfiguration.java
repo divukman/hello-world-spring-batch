@@ -6,6 +6,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,7 +50,8 @@ public class BatchConfiguration {
 
     @Bean
     public Job helloWorldJob() {
-        return jobBuilderFactory.get("helloWorldJob")
+        return jobBuilderFactory.get("helloWorldJob2")
+                .incrementer(new RunIdIncrementer())
                 .start(step1())
                 .listener(helloWorldJobExecutionListener)
                 .next(step2())
